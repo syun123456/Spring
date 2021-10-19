@@ -1,0 +1,24 @@
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.syun.mapper.UserMapper;
+import com.syun.mapper.UserMapperImpl;
+import com.syun.pojo.User;
+import com.syun.utils.MybatisUtils;
+
+public class MyTest {
+	@Test
+	public void test() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		UserMapper userMapper = context.getBean("userMapperImpl2", UserMapper.class);
+		
+		List<User> users = userMapper.selectUser();
+		for(User user:users) {
+			System.out.println(user);
+		}
+	}
+}

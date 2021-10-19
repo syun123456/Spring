@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 開啟spring註解支持-->
+	<context:annotation-config></context:annotation-config>
+
+	<bean id="cat" class="com.syun.pojo.Cat"></bean>
+	<bean id="dog2" class="com.syun.pojo.Dog"></bean>
+	<!-- autowire = byName 自動找set方法後面的名字，如果名字與bean id相同，則自動抓取，bean id須為唯一-->
+	<!-- autowire = byType 自動找與物件成員中類型相同的bean，該bean class須為唯一-->
+	<bean id="people" class="com.syun.pojo.People">
+		<!-->property name="name" value="syun"></property>-->
+		<!--<property name="cat" ref="cat"></property>-->
+		<!--<property name="dog" ref="dog"></property>-->
+	</bean>
+	
+</beans>

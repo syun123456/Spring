@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mysql" class="com.syun.dao.UserDaoImplMysql" name="mysql2, mysql3"/>  
+	<bean id="oracle" class="com.syun.dao.UserDaoImplOracle" name="oracle2, oracle3"/>
+	<bean id="userServiceImpl" class="com.syun.service.UserServiceImpl" name="userService2">
+		<property name="userDao" ref="mysql"></property>
+	</bean>
+
+</beans>

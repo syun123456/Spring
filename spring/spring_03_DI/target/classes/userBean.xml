@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 通過set方法注入資料-->
+	<bean id="user" class="com.syun.pojo.User" p:name="aaa" p:age="18" scope="singleton"></bean>
+	
+	<!-- 通過建構子注入資料-->
+	<bean id="user2" class="com.syun.pojo.User" c:name="zzz" c:age="100" scope="prototype"></bean>
+</beans>

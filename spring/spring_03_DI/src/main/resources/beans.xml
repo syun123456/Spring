@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="address" class="com.syun.pojo.Address">
+		<constructor-arg name="address" value="123456"></constructor-arg>
+	</bean>
+	
+    <bean id="student" class="com.syun.pojo.Student">  
+		<property name="name" value="Syun"></property>
+		<property name="address" ref="address"></property>
+		<property name="books">
+			<array>
+				<value>"會計學"</value>
+				<value>"審計學"</value>
+				<value>"成本學"</value>
+			</array>
+		</property>
+		<property name="hobbys">
+			<list>
+				<value>"睡覺"</value>
+				<value>"運動"</value>
+				<value>"看戲"</value>
+			</list>
+		</property>
+		<property name="card">
+			<map>
+				<entry key="身分證" value="1111111111"></entry>
+				<entry key="學生證" value="222222"></entry>
+			</map>
+		</property>
+		<property name="games">
+			<set>
+				<value>"AAA"</value>
+				<value>"BBB"</value>
+				<value>"CCC"</value>
+			</set>
+		</property>
+		<property name="wife">
+			<null></null>
+		</property>
+		<property name="info">
+			<props>
+				<prop key="性別">男生</prop>
+				<prop key="年齡">18</prop>
+				<prop key="身高">175</prop>
+				<prop key="體重">52</prop>
+			</props>
+		</property>
+    </bean>
+
+
+</beans>

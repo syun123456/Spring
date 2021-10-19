@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 使用spring DataSource替換Mybatis的xml核心配置文件-->
+	<!-- DataSource 要導入spring jdbc的jar檔-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="url" value="jdbc:sqlserver://0.0.0.0:1433;DatabaseName=JavaTest"></property>
+		<property name="username" value="test"></property>
+		<property name="password" value="javatest"></property>
+	</bean>
+	
+	<!--SqlSessionFactory-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 綁定mybatis核心配置文件-->
+		<property name="configLocation" value="classpath:mybatis_config.xml"></property>
+	</bean>
+	
+	<!-- 建立sqlSession-->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- 配置事務-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	  <constructor-arg ref="dataSource" />
+	</bean>
+	
+	<!-- 配置事務通知，並結合AOP-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<!-- 給方法配置事務，spring預設propagation="REQUIRED"(可不寫)-->
+		<tx:attributes>
+			<tx:method name="add" propagation="REQUIRED"/>
+			<tx:method name="delete" propagation="REQUIRED"/>
+			<tx:method name="update" propagation="REQUIRED"/>
+			<tx:method name="select" read-only="true"/>
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="txPointCut" expression="execution(* com.syun.mapper.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+	</aop:config>
+
+</beans>
